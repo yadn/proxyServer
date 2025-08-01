@@ -1,15 +1,15 @@
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    console.log('Received body:', req.body);
+    console.log('Received body:', req?.body?.message.text);
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 2000); // max 1.5 seconds
+    const timeout = setTimeout(() => controller.abort(), 1500); // max 1.5 seconds
 
     try {
       await fetch('https://script.google.com/macros/s/AKfycbwa5Yg6Eryx4Avmp98o711aSuUtgB4JOAZVW82RtPeCdqKcBEVFTs7X1NsNTnkcONJoVw/exec', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(req.body.text),
+        body: JSON.stringify(req.body),
         signal: controller.signal,
       });
     } catch (err) {
