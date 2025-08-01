@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     console.log('Received body:', req.body);
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 1500); // max 1.5 seconds
+    const timeout = setTimeout(() => controller.abort(), 1000); // max 1.5 seconds
 
     try {
       await fetch('https://script.google.com/macros/s/AKfycbwa5Yg6Eryx4Avmp98o711aSuUtgB4JOAZVW82RtPeCdqKcBEVFTs7X1NsNTnkcONJoVw/exec', {
