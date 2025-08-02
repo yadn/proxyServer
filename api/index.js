@@ -1,12 +1,14 @@
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    console.log('Received body:', req?.body?.message.text);
+    console.log('Received body:', req?.body?.message?.text);
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 1500); // max 1.5 seconds
 
+    const scriptUrl = process.env.GOOGLE_SCRIPT_URL; // ENV VARIABLE
+
     try {
-      await fetch('https://script.google.com/macros/s/AKfycbwa5Yg6Eryx4Avmp98o711aSuUtgB4JOAZVW82RtPeCdqKcBEVFTs7X1NsNTnkcONJoVw/exec', {
+      await fetch(scriptUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(req.body),
